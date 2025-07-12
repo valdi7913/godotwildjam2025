@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://g6mgh6eel2wb"]
+
+[ext_resource type="Texture2D" uid="uid://cw1fppyuv0c8o" path="res://assets/spear.png" id="1_43rot"]
+[ext_resource type="Script" uid="uid://cy284frvgu58b" path="res://scripts/weapons/spear/spear.gd" id="1_uf2bl"]
+[ext_resource type="Script" uid="uid://yj1v2kdqgb5n" path="res://scripts/weapons/weapon_state_machine.gd" id="3_un1d1"]
+[ext_resource type="Script" uid="uid://bgyc2o2jh07te" path="res://scripts/weapons/spear/idle_state.gd" id="4_un1d1"]
+[ext_resource type="Script" uid="uid://bu8vwktre8eje" path="res://scripts/weapons/spear/swing_state.gd" id="5_3w0sl"]
+[ext_resource type="Script" uid="uid://hqvw5ep6lf60" path="res://scripts/weapons/spear/reset_state.gd" id="6_7ktm6"]
+[ext_resource type="Script" uid="uid://ek0e585gd3qb" path="res://scripts/weapons/spear/charging_state.gd" id="6_ng344"]
+[ext_resource type="Script" uid="uid://cc54s2ixfhrv6" path="res://scripts/weapons/spear/thrusting_state.gd" id="8_vjlew"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("1_43rot")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uf2bl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Spear" type="Node2D"]
+script = ExtResource("1_uf2bl")
+
+[node name="SpriteAnchor" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="SpriteAnchor"]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_uf2bl")
+
+[node name="SwingArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwingArea"]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(0, -7, 7, -6, 11, -3, 13, 0, 15, 7, 15, 9, 0, 9, 0, 8, -1, 8, -1, -7)
+
+[node name="ThrustArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThrustArea"]
+position = Vector2(0, -16)
+polygon = PackedVector2Array(0, 7, 23, 7, 23, 9, 0, 9)
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_un1d1")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="state_machine" node_paths=PackedStringArray("swing_state")]
+script = ExtResource("4_un1d1")
+swing_state = NodePath("../swing")
+animation_name = "idle"
+
+[node name="swing" type="Node" parent="state_machine" node_paths=PackedStringArray("reset_state", "charge_state")]
+script = ExtResource("5_3w0sl")
+reset_state = NodePath("../resetting")
+charge_state = NodePath("../charging")
+LENGTH_IN_SECONDS = 0.15
+
+[node name="charging" type="Node" parent="state_machine" node_paths=PackedStringArray("thrusting_state")]
+script = ExtResource("6_ng344")
+thrusting_state = NodePath("../thrusting")
+
+[node name="resetting" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("6_7ktm6")
+idle_state = NodePath("../idle")
+
+[node name="thrusting" type="Node" parent="state_machine" node_paths=PackedStringArray("reseting_state")]
+script = ExtResource("8_vjlew")
+reseting_state = NodePath("../resetting")
+LENGTH_IN_SECONDS = 0.1
