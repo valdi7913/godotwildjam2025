@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ptcof0d6t73t"]
+[gd_scene load_steps=4 format=3 uid="uid://ptcof0d6t73t"]
 
 [ext_resource type="Script" uid="uid://b45pxk8sd1tkt" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ba4gun0kyanh1" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://b7kjna67lvmsi" path="res://scenes/enemy.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0wfyh")
@@ -10,10 +11,7 @@ script = ExtResource("1_0wfyh")
 position = Vector2(568, 321)
 scale = Vector2(4, 4)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 537.0
-offset_top = 113.0
-offset_right = 577.0
-offset_bottom = 136.0
-text = "Hello World
-"
+[node name="Enemy" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("3_sugp2")]
+position = Vector2(811, 309)
+scale = Vector2(4, 4)
+TARGET = NodePath("../Player")

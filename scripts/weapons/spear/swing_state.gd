@@ -8,7 +8,6 @@ var player_clicked = false
 var finished = false
 
 func enter() -> void:
-	print("Swing State")
 	finished = false
 	player_clicked = false
 	
@@ -16,8 +15,8 @@ func enter() -> void:
 	
 	var rotation_tween = create_tween()
 	rotation_tween.set_ease(Tween.EASE_IN_OUT)
-	rotation_tween.tween_property(parent.sprite_anchor, "rotation", deg_to_rad(90), LENGTH_IN_SECONDS)
-	
+	rotation_tween.tween_property(parent.sprite_anchor, "rotation", deg_to_rad(180), LENGTH_IN_SECONDS)
+	rotation_tween.tween_property(parent.sprite_anchor, "rotation", deg_to_rad(180), LENGTH_IN_SECONDS).set_delay(0.4)
 	rotation_tween.connect("finished", _on_swing_finished)
 	
 func _on_swing_finished():
@@ -30,8 +29,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		player_clicked = true
 		
 func process_frame(_delta: float) -> WeaponState:
-
-		
 	if finished:
 		if player_clicked:
 			return charge_state

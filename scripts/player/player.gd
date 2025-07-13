@@ -10,6 +10,7 @@ extends Area2D
 @export var walking_speed = 200.0
 @export var running_speed = 400.0
 @export var jump_speed = 400.0
+@export var hand_length = 5
 
 var direction: Vector2 = Vector2(0,0)
 var facing_right: bool:
@@ -22,17 +23,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouse:
 		direction = (event.position - position).normalized()
 		var mouse_deg = direction.angle()
-		print(rad_to_deg(mouse_deg))
-		print(weapon_anchor.rotation)
 		weapon_anchor.rotation = mouse_deg
 		
 	#flip weapon sprite based on direction
 	var is_going_left: bool = direction.x < 0
 	animation_player.flip_h = is_going_left
-	weapon.sprite.flip_h = is_going_left
-	weapon.sprite.flip_v = is_going_left
 	weapon.z_index = 10 if direction.y > 0 else -10
-	
+		
 	state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
