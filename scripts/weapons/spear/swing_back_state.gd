@@ -3,13 +3,10 @@ extends WeaponState
 @export var reseting_state: WeaponState
 @export var LENGTH_IN_SECONDS : float = 0.1
 
-var player_clicked = false
 var finished = false
 
 func enter() -> void:
-	print("Thrusting State")
 	finished = false
-	player_clicked = false
 	
 	parent.swing_area.monitoring = true
 	
@@ -24,9 +21,6 @@ func _on_swing_finished():
 	finished = true
 	
 func process_frame(_delta: float) -> WeaponState:
-	if Input.is_action_pressed("left_click"):
-		player_clicked = true
-		
 	if finished:
 		return reseting_state
 	return null

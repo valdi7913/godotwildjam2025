@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b7kjna67lvmsi"]
+[gd_scene load_steps=54 format=3 uid="uid://b7kjna67lvmsi"]
 
 [ext_resource type="Shader" uid="uid://kdy28usr0fjq" path="res://scenes/enemy.gdshader" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://f1er0hiwcilr" path="res://assets/knight.png" id="2_4ra3w"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://yntcg2qcocm1" path="res://scripts/enemy/states/pursuing_state.gd" id="5_c4w8v"]
 [ext_resource type="Script" uid="uid://pndw2tbjcfyv" path="res://scripts/enemy/states/idle_state.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://dmpuxvyfjdqiq" path="res://scripts/enemy/states/attacking_state.gd" id="6_xwavj"]
+[ext_resource type="Script" uid="uid://bx574v0nnhnnq" path="res://scripts/enemy/enemy_weapon_controller.gd" id="8_ipns3"]
 [ext_resource type="PackedScene" uid="uid://g6mgh6eel2wb" path="res://scenes/spear.tscn" id="8_md484"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_md0e3"]
@@ -418,10 +419,15 @@ animation_name = "pursuing"
 script = ExtResource("6_xwavj")
 pursuing_state = NodePath("../pursuing")
 
-[node name="weapon_anchor" type="Node" parent="."]
+[node name="weapon_controller" type="Node" parent="."]
+script = ExtResource("8_ipns3")
+metadata/_custom_type_script = "uid://dmuirgibia57n"
 
-[node name="Spear" parent="weapon_anchor" instance=ExtResource("8_md484")]
+[node name="weapon_anchor" type="Node2D" parent="."]
+
+[node name="Spear" parent="weapon_anchor" node_paths=PackedStringArray("weapon_controller") instance=ExtResource("8_md484")]
 position = Vector2(4, 0)
+weapon_controller = NodePath("../../weapon_controller")
 
 [node name="AttackArea" type="Area2D" parent="."]
 

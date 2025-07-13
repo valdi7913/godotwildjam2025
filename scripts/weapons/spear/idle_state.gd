@@ -8,8 +8,8 @@ func enter():
 func exit():
 	parent.is_attacking = true
 
-func process_input(event: InputEvent) -> WeaponState:
-	if Input.is_action_just_pressed("left_click"):
+func process_input(_event: InputEvent) -> WeaponState:
+	if weapon_controller.wants_to_attack():
 		return charging_state
 	else:
 		return null

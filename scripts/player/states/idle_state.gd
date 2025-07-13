@@ -10,7 +10,6 @@ func process_input(event: InputEvent) -> PlayerState:
 	
 	if event is InputEventMouse:
 		if parent.direction.y < -0.5:
-			print("back") 
 			parent.animation_player.play(animation_name+"_Back")
 		else:
 			parent.animation_player.play(animation_name)

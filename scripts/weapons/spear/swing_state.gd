@@ -23,9 +23,8 @@ func _on_swing_finished():
 	parent.swing_area.monitoring = false
 	finished = true
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("left_click"):
-		print("charging_charging")
+func _unhandled_input(_event: InputEvent) -> void:
+	if weapon_controller.wants_to_attack() and not player_clicked:
 		player_clicked = true
 		
 func process_frame(_delta: float) -> WeaponState:

@@ -5,10 +5,11 @@ extends Node
 
 var current_state: WeaponState
 
-func init(parent: Spear) -> void:
+func init(parent: Spear, weapon_controller: WeaponController) -> void:
 	for child in get_children():
 		if child is WeaponState:
 			child.parent = parent
+			child.weapon_controller = weapon_controller
 
 	change_state(starting_state)
 

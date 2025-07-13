@@ -22,8 +22,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouse:
 		direction = (event.position - position).normalized()
-		var mouse_deg = direction.angle()
-		weapon_anchor.rotation = mouse_deg
+		var mouse_angle = direction.angle()
+		weapon_anchor.rotation = mouse_angle
 		
 	#flip weapon sprite based on direction
 	var is_going_left: bool = direction.x < 0

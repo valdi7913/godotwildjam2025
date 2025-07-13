@@ -12,5 +12,8 @@ func process_physics(delta: float) -> EnemyState:
 		return idle_state
 	
 	var direction = (parent.TARGET.position - parent.position).normalized()
+	
+	parent.weapon_anchor.rotation = direction.angle()
+	
 	parent.position += direction * parent.SPEED * delta
 	return null

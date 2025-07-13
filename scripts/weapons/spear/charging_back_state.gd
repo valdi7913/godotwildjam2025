@@ -6,7 +6,6 @@ extends WeaponState
 var finished: bool = false
 
 func enter() -> void:
-	print("charging State")
 	finished = false
 	
 	var tween = create_tween()

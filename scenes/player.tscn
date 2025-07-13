@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ba4gun0kyanh1"]
+[gd_scene load_steps=50 format=3 uid="uid://ba4gun0kyanh1"]
 
 [ext_resource type="Script" uid="uid://ckth7y3uhvqg0" path="res://scripts/player/player.gd" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://f1er0hiwcilr" path="res://assets/knight.png" id="2_qlg0r"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dxcajgtv2kvkt" path="res://scripts/player/states/jumping_state.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://db7wyfy0dbplh" path="res://scripts/player/states/idle_state.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://g6mgh6eel2wb" path="res://scenes/spear.tscn" id="8_smehm"]
+[ext_resource type="Script" uid="uid://bre4e58vyxi6k" path="res://scripts/player/player_weapon_controller.gd" id="9_ur7pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(8, 16)
@@ -416,5 +417,10 @@ animation_name = "Idle"
 
 [node name="weapon_anchor" type="Node2D" parent="."]
 
-[node name="weapon" parent="weapon_anchor" instance=ExtResource("8_smehm")]
+[node name="weapon" parent="weapon_anchor" node_paths=PackedStringArray("weapon_controller") instance=ExtResource("8_smehm")]
 position = Vector2(4, 0)
+weapon_controller = NodePath("../weapon_controller")
+
+[node name="weapon_controller" type="Node" parent="weapon_anchor"]
+script = ExtResource("9_ur7pv")
+metadata/_custom_type_script = "uid://dmuirgibia57n"
