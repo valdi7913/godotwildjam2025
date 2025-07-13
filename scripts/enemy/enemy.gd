@@ -5,6 +5,7 @@ extends Area2D
 @onready var ai_state_machine: EnemyStateMachine = $ai_state_machine
 @onready var weapon_controller: Node = $weapon_controller
 @onready var weapon_anchor: Node2D = $weapon_anchor
+@onready var health_component: HealthComponent = $health_component
 
 @export var TARGET: Area2D
 @export var SPEED: float = 100.0
@@ -41,3 +42,6 @@ func _on_sight_area_entered(area: Area2D) -> void:
 func _on_sight_area_exited(area: Area2D) -> void:
 	if area == TARGET:
 		target_is_in_sight_range = false
+		
+func _on_health_depleted() -> void:
+	queue_free()

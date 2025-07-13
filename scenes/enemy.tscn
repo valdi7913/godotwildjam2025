@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://b7kjna67lvmsi"]
+[gd_scene load_steps=57 format=3 uid="uid://b7kjna67lvmsi"]
 
 [ext_resource type="Shader" uid="uid://kdy28usr0fjq" path="res://scenes/enemy.gdshader" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://f1er0hiwcilr" path="res://assets/knight.png" id="2_4ra3w"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://dmpuxvyfjdqiq" path="res://scripts/enemy/states/attacking_state.gd" id="6_xwavj"]
 [ext_resource type="Script" uid="uid://bx574v0nnhnnq" path="res://scripts/enemy/enemy_weapon_controller.gd" id="8_ipns3"]
 [ext_resource type="PackedScene" uid="uid://g6mgh6eel2wb" path="res://scenes/spear.tscn" id="8_md484"]
+[ext_resource type="Script" uid="uid://bn27dg6pnnj8e" path="res://scripts/components/health_component.gd" id="10_8qclf"]
+[ext_resource type="Script" uid="uid://ducoo41kdusme" path="res://scenes/enemy_health_bar.gd" id="11_w8i8w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_md0e3"]
 shader = ExtResource("1_md0e3")
@@ -385,8 +387,12 @@ radius = 20.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_md484"]
 radius = 50.0
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8qclf"]
+size = Vector2(10, 4)
+
 [node name="Enemy" type="Area2D"]
 material = SubResource("ShaderMaterial_md0e3")
+collision_layer = 2
 script = ExtResource("2_5uy6h")
 
 [node name="Character" type="AnimatedSprite2D" parent="."]
@@ -421,6 +427,8 @@ pursuing_state = NodePath("../pursuing")
 
 [node name="weapon_controller" type="Node" parent="."]
 script = ExtResource("8_ipns3")
+collission_layer = 2
+collission_mask = 1
 metadata/_custom_type_script = "uid://dmuirgibia57n"
 
 [node name="weapon_anchor" type="Node2D" parent="."]
@@ -431,16 +439,41 @@ weapon_controller = NodePath("../../weapon_controller")
 damage = 0.0
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 
 [node name="AttackAreaShape" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("CircleShape2D_nenq2")
 
 [node name="SightArea" type="Area2D" parent="."]
+visible = false
 
 [node name="SightAreaShape" type="CollisionShape2D" parent="SightArea"]
 shape = SubResource("CircleShape2D_md484")
+
+[node name="health_component" type="Node" parent="."]
+script = ExtResource("10_8qclf")
+
+[node name="ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -7.0
+offset_top = -21.0
+offset_right = 7.0
+offset_bottom = 8.0
+
+[node name="health_bar" type="TextureProgressBar" parent="ui"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 12.0
+offset_bottom = 34.0
+value = 100.0
+texture_progress = SubResource("PlaceholderTexture2D_8qclf")
+script = ExtResource("11_w8i8w")
 
 [connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_entered"]
 [connection signal="area_exited" from="AttackArea" to="." method="_on_attack_area_exited"]
 [connection signal="area_entered" from="SightArea" to="." method="_on_sight_area_entered"]
 [connection signal="area_exited" from="SightArea" to="." method="_on_sight_area_exited"]
+[connection signal="health_change" from="health_component" to="ui/health_bar" method="_on_enemy_health_changed"]
+[connection signal="health_depleted" from="health_component" to="." method="_on_health_depleted"]

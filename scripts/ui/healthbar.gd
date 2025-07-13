@@ -1,5 +1,4 @@
 extends TextureProgressBar
 
-
-func _on_player_health_changed(diff: float, current: float, max: float) -> void:
-	value = (current/max) * 100
+func _on_player_health_changed(diff: float, current_health: float, max_health: float) -> void:
+	value = (current_health/max_health) * 100

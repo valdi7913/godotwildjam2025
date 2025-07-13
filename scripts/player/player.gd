@@ -1,7 +1,7 @@
 class_name Player
 extends Area2D
 
-signal player_health_changed(diff: float, current: float, max: float)
+signal player_health_changed(diff: float, current_health: float, max_health: float)
 
 @onready var animation_player: AnimatedSprite2D = $Character
 @onready var state_machine: PlayerStateMachine = $state_machine
@@ -23,7 +23,8 @@ func _ready() -> void:
 	print("HealthComponent: ", health_component)
 	health_component.health_change.connect(_on_health_changed)
 	state_machine.init(self)
-
+	
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouse:
 		direction = (event.position - position).normalized()

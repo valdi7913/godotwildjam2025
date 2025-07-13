@@ -10,7 +10,7 @@ var finished = false
 func enter() -> void:
 	finished = false
 	player_clicked = false
-	parent.swing_area.monitoring = true
+	parent.hurt_box.monitoring = true
 	
 	var rotation_tween = create_tween()
 	rotation_tween.set_ease(Tween.EASE_IN_OUT)
@@ -19,7 +19,7 @@ func enter() -> void:
 	rotation_tween.connect("finished", _on_swing_finished)
 	
 func _on_swing_finished():
-	parent.swing_area.monitoring = false
+	parent.hurt_box.monitoring = false
 	finished = true
 	
 func _unhandled_input(_event: InputEvent) -> void:

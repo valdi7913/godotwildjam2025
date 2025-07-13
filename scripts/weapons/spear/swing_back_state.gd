@@ -8,7 +8,7 @@ var finished = false
 func enter() -> void:
 	finished = false
 	
-	parent.swing_area.monitoring = true
+	parent.hurt_box.monitoring = true
 	
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
@@ -17,7 +17,7 @@ func enter() -> void:
 	tween.connect("finished", _on_swing_finished)
 	
 func _on_swing_finished():
-	parent.swing_area.monitoring = false
+	parent.hurt_box.monitoring = false
 	finished = true
 	
 func process_frame(_delta: float) -> WeaponState:
