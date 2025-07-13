@@ -10,7 +10,6 @@ var finished = false
 func enter() -> void:
 	finished = false
 	player_clicked = false
-	
 	parent.swing_area.monitoring = true
 	
 	var rotation_tween = create_tween()

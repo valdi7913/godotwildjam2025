@@ -13,3 +13,10 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
+
+func _on_swing_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Player"):
+		var player: Player = area
+		player.health_component.change_health(-10.0)
+	if area.is_in_group("Enemy"):
+		print("Enemy hit!", area)

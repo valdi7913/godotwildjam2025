@@ -1,17 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ptcof0d6t73t"]
+[gd_scene load_steps=6 format=3 uid="uid://ptcof0d6t73t"]
 
 [ext_resource type="Script" uid="uid://b45pxk8sd1tkt" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ba4gun0kyanh1" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b7kjna67lvmsi" path="res://scenes/enemy.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://bnxcixk4i3lxm" path="res://scripts/ui/healthbar.gd" id="4_jyhfs"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sugp2"]
+size = Vector2(400, 20)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0wfyh")
 
-[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_o5qli")]
 position = Vector2(568, 321)
 scale = Vector2(4, 4)
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("3_sugp2")]
+[node name="Enemy" parent="." node_paths=PackedStringArray("TARGET") groups=["Enemies"] instance=ExtResource("3_sugp2")]
 position = Vector2(811, 309)
 scale = Vector2(4, 4)
 TARGET = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+clip_contents = true
+custom_minimum_size = Vector2(300, 400)
+offset_right = 400.0
+offset_bottom = 400.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+texture_progress = SubResource("PlaceholderTexture2D_sugp2")
+script = ExtResource("4_jyhfs")
+
+[connection signal="player_health_changed" from="Player" to="CanvasLayer/VBoxContainer/TextureProgressBar" method="_on_player_health_changed"]

@@ -428,6 +428,7 @@ metadata/_custom_type_script = "uid://dmuirgibia57n"
 [node name="Spear" parent="weapon_anchor" node_paths=PackedStringArray("weapon_controller") instance=ExtResource("8_md484")]
 position = Vector2(4, 0)
 weapon_controller = NodePath("../../weapon_controller")
+damage = 0.0
 
 [node name="AttackArea" type="Area2D" parent="."]
 

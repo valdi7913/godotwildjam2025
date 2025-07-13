@@ -8,7 +8,7 @@ func enter():
 func exit():
 	parent.is_attacking = true
 
-func process_input(_event: InputEvent) -> WeaponState:
+func process_frame(_delta: float) -> WeaponState:
 	if weapon_controller.wants_to_attack():
 		return charging_state
 	else:

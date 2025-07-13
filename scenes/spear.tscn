@@ -27,6 +27,7 @@ animations = [{
 
 [node name="Spear" type="Node2D"]
 script = ExtResource("1_uf2bl")
+damage = 10.0
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
@@ -73,3 +74,5 @@ reseting_state = NodePath("../resetting")
 script = ExtResource("6_7ktm6")
 idle_state = NodePath("../idle")
 LENGTH_IN_SECONDS = 0.2
+
+[connection signal="area_entered" from="SwingArea" to="." method="_on_swing_area_entered"]
