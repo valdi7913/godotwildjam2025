@@ -18,10 +18,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_swing_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Player"):
-		print("player hit")
 		var player: Player = area
 		player.health_component.change_health(-10.0)
 	if area.is_in_group("Enemies"):
-		print("Enemy hit!", area)
 		var enemy: Enemy = area
 		enemy.health_component.change_health(-30.0)

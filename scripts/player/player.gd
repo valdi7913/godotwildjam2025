@@ -20,8 +20,6 @@ var facing_right: bool:
 	get: return direction.x < 0
 
 func _ready() -> void:
-	print("HealthComponent: ", health_component)
-	health_component.health_change.connect(_on_health_changed)
 	state_machine.init(self)
 	
 	

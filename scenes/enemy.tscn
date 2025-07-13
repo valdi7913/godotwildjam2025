@@ -395,7 +395,7 @@ material = SubResource("ShaderMaterial_md0e3")
 collision_layer = 2
 script = ExtResource("2_5uy6h")
 
-[node name="Character" type="AnimatedSprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="."]
 z_index = 1
 texture_filter = 1
 material = SubResource("ShaderMaterial_5uy6h")
@@ -403,7 +403,7 @@ use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_c4w8v")
 animation = &"Idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="hurt_box" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_md0e3")
 
 [node name="ai_state_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -414,16 +414,17 @@ starting_state = NodePath("idle")
 script = ExtResource("5_c4w8v")
 attacking_state = NodePath("../attacking")
 idle_state = NodePath("../idle")
-animation_name = "pursuing"
+animation_name = "Walking"
 
 [node name="idle" type="Node" parent="ai_state_machine" node_paths=PackedStringArray("pursuing_state")]
 script = ExtResource("6_nenq2")
 pursuing_state = NodePath("../pursuing")
-animation_name = "pursuing"
+animation_name = "Idle"
 
 [node name="attacking" type="Node" parent="ai_state_machine" node_paths=PackedStringArray("pursuing_state")]
 script = ExtResource("6_xwavj")
 pursuing_state = NodePath("../pursuing")
+animation_name = "Idle"
 
 [node name="weapon_controller" type="Node" parent="."]
 script = ExtResource("8_ipns3")

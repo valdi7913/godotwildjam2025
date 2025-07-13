@@ -1,7 +1,7 @@
 class_name Enemy
 extends Area2D
 
-@onready var sprite: AnimatedSprite2D = $Sprite
+@onready var sprite: AnimatedSprite2D = $sprite
 @onready var ai_state_machine: EnemyStateMachine = $ai_state_machine
 @onready var weapon_controller: Node = $weapon_controller
 @onready var weapon_anchor: Node2D = $weapon_anchor

@@ -4,9 +4,11 @@ extends Node
 @export var animation_name: String
 
 var parent: Enemy
+var target: Area2D
 
 func enter() -> void:
-	print(animation_name)
+	print("Enemy", animation_name)
+	parent.sprite.play(animation_name)
 
 func exit() -> void:
 	pass

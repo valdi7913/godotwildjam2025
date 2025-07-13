@@ -4,13 +4,12 @@ extends Node
 @export var starting_state: EnemyState
 
 var current_state: EnemyState
-var target: Area2D
 
 func init(parent: Enemy, target: Area2D) -> void:
 	for child in get_children():
 		if child is EnemyState:
 			child.parent = parent
-
+			child.target = target
 	change_state(starting_state)
 
 func change_state(new_state: EnemyState) -> void:
